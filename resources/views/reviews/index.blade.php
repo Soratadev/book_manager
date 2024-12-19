@@ -1,10 +1,25 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if(session()->has('success'))
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
+                    <span class="text-indigo-600 text-xl font-semibold">{{session('success')}}</span>
+                </div>
+            @elseif(session()->has('updated'))
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
+                    <span class="text-indigo-600 text-xl font-semibold">{{session('updated')}}</span>
+                </div>
+            @elseif(session()->has('deleted'))
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
+                    <span class="text-indigo-600 text-xl font-semibold">{{session('deleted')}}</span>
+                </div>
+            @endif
+
             <div class="overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100s space-x-8">
                     <a href="{{route('reviews.create')}}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Agregar review') }}</a>
-                    <a href="#" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Las mejores reviews') }}</a>
+                    <a href="{{route('reviews.index', ['filter'=>'popular'])}}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Más populares') }}</a>
+                    <a href="{{route('reviews.index', ['filter'=>'own'])}}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Mis reviews') }}</a>
                 </div>
             </div>
             <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
@@ -31,19 +46,23 @@
                                         </button>
                                     </x-slot>
                                     <x-slot name="content">
-                                        <x-dropdown-link :href="$myroute='zzz'">
+                                        <x-dropdown-link :href="route('reviews.show', $review)">
                                             {{ __('Ver') }}
                                         </x-dropdown-link>
-                                        <x-dropdown-link :href="$myroute='zzz'">
-                                            {{ __('Edit') }}
-                                        </x-dropdown-link>
-                                        <form method="POST" action="">
-                                            @csrf
-                                            @method('delete')
-                                            <x-dropdown-link :href="$myroute='zzz'" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                {{ __('Delete') }}
+                                        @can('update', $review)
+                                            <x-dropdown-link :href="route('reviews.edit', $review)">
+                                                {{ __('Editar') }}
                                             </x-dropdown-link>
-                                        </form>
+                                        @endcan
+                                        @can('delete', $review)
+                                            <form method="POST" action="{{route('reviews.delete', $review)}}">
+                                                @csrf
+                                                @method('delete')
+                                                <x-dropdown-link href="" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                    {{ __('Eliminar') }}
+                                                </x-dropdown-link>
+                                            </form>
+                                        @endcan
                                     </x-slot>
                                 </x-dropdown>
                             @endauth
@@ -63,3 +82,15 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const flashMessage = document.getElementById('flash_message');
+        if (flashMessage) {
+            setTimeout(() => {
+                flashMessage.style.transition = "opacity 1s ease";
+                flashMessage.style.opacity = 0;
+                setTimeout(() => flashMessage.remove(), 1000); // Elimina el elemento después de 1 segundo
+            }, 1000);
+        }
+    });
+</script>

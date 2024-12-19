@@ -47,7 +47,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);
@@ -59,6 +58,10 @@ class User extends Authenticatable
     public function reviews_liked(): BelongsToMany
     {
         return $this->belongsToMany(Review::class);
+    }
+    public function reviews_disliked($reviewId): bool
+    {
+        return $this->reviews_liked()->where('review_id', $reviewId)->exists();
     }
 
 }

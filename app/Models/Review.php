@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Review extends Model
 {
@@ -14,7 +15,8 @@ class Review extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'body'
+        'body',
+        'likes'
     ];
 
     protected $casts = ['created_at' => 'datetime'];
@@ -30,6 +32,19 @@ class Review extends Model
     public function users_who_like(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+    public function scopePopular(Builder $query, $filter)
+    {
+        if (!empty($filter) && $filter == 'popular') {
+            return $query->sortByDesc('likes');
+        }
+
+    }
+    public function scopeOwn(Builder $query, $filter)
+    {
+        if (!empty($filter) && $filter == 'own') {
+            return $query->where('user_id', auth()->id());
+        }
     }
 
 

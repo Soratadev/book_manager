@@ -3,37 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BookController extends Controller
 {
+    protected array $validated_data = [
+
+            'title' => 'required|string|max:55',
+            'author' => 'required|string|max:55',
+            'publisher' => 'max:55',
+            'isbn' => 'required|integer|digits:13',
+            'publication_year' => 'integer|digits:4',
+            'pages' => 'integer|min:1',
+            'finished' => 'required'
+        ];
+
     public function index(): View
     {
-        $books = Book::get(); //select * from reviews
-        return view('books.index',['books'=>$books]);
+        //$books = Book::get(); //select * from reviews
+        $books = Book::where('user_id', auth()->user()?->id)->get();
+
+        return view('books.index', ['books' => $books]);
     }
 
     public function add(): View
     {
-        return view('books.add');
+        return view('books.add_edit');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        $validated = $request->validate($this->validated_data);
+
         Book::create([
             'user_id'=> $request->user()->id,
-            'title'=> $request->get('title'),
-            'author'=> $request->get('author'),
+            'title'=> $validated['title'],
+            'author'=> $validated['author'],
             'genre'=> $request->get('genre'),
-            'publisher'=> $request->get('publisher'),
-            'isbn'=> $request->get('isbn'),
-            'publication_year'=> $request->get('publication_year'),
-            'pages'=> $request->get('pages'),
-            'finished'=> $request->get('finished'),
-
-
+            'publisher'=> $validated['publisher'],
+            'isbn'=> $validated['isbn'],
+            'publication_year'=> $validated['publication_year'],
+            'pages'=> $validated['pages'],
+            'finished'=> $validated['finished'],
         ]);
+        session()->flash('success','Libro añadido correctamente');
+        return redirect()->route('books.index');
+    }
+
+    public function edit(Book $book): View
+    {
+        return view('books.add_edit')->with('book',$book);
+    }
+
+    public function update(Request $request,Book $book): RedirectResponse
+    {
+        $validated = $request->validate($this->validated_data);
+
+        $book->update($validated);
+        session()->flash('updated','Libro modificado correctamente');
+        return redirect()->route('books.index');
+    }
+
+    public function show(Book $book): View
+    {
+        return view('books.show')->with('book',$book);
+    }
+
+    public function delete(Book $book): RedirectResponse
+    {
+        $book->delete();
+        session()->flash('deleted','Libro eliminado correctamente');
         return redirect()->route('books.index');
     }
 
