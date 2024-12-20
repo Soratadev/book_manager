@@ -33,17 +33,16 @@ class Review extends Model
     {
         return $this->belongsToMany(User::class);
     }
-    public function scopePopular(Builder $query, $filter)
+    public function scopePopular(Builder $query, $filter): void
     {
         if (!empty($filter) && $filter == 'popular') {
-            return $query->sortByDesc('likes');
+            $query->orderBy('likes', 'desc');
         }
-
     }
-    public function scopeOwn(Builder $query, $filter)
+    public function scopeOwn(Builder $query, $filter): void
     {
         if (!empty($filter) && $filter == 'own') {
-            return $query->where('user_id', auth()->id());
+            $query->where('user_id', auth()->id());
         }
     }
 

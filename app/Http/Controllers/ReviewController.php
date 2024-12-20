@@ -13,7 +13,7 @@ class ReviewController extends Controller
     use AuthorizesRequests;
     public function index(Request $request): View
     {
-        $reviews = Review::own($request->filter)->get(); //select * from reviews
+        $reviews = Review::own($request->filter)->popular($request->filter)->get(); //select * from reviews
         return view('reviews.index',['reviews'=>$reviews]);
     }
 
@@ -67,7 +67,6 @@ class ReviewController extends Controller
     }
     public function liked(Request $request, Review $review): RedirectResponse
     {
-        //$request->user()->reviews_liked()->toggle($review->id);
         $review->users_who_like()->toggle($request->user()->id);
         $review->users_who_like()->count();
         $review->update(['likes'=> $review->users_who_like()->count()]);

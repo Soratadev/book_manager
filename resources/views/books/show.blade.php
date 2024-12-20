@@ -1,9 +1,14 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            Datos del libro: {{$book->title}}
+        </h2>
+    </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="text-xl text-center pb-3">Datos del libro: {{$book->title}}</h1>
+                    <h1 class="text-xl text-center pb-3">{{$book->title}}</h1>
                     <style>
                         th, td {
                             border: 1px solid whitesmoke;

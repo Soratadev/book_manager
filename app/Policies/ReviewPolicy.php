@@ -43,10 +43,7 @@ class ReviewPolicy
         return $review->user_id === $user->id
             ? Response::allow()
             : Response::deny('Esta review no te pertenece');
-
-
     }
-
     /**
      * Determine whether the user can delete the model.
      */
