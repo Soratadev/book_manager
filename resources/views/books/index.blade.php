@@ -7,25 +7,25 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if(session()->has('success'))
-                <div class="text-center bg-gray-200 rounded-md p-2">
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
                     <span class="text-indigo-600 text-xl font-semibold">{{session('success')}}</span>
                 </div>
             @elseif(session()->has('updated'))
-                <div class="text-center bg-gray-200 rounded-md p-2">
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
                     <span class="text-indigo-600 text-xl font-semibold">{{session('updated')}}</span>
                 </div>
             @elseif(session()->has('deleted'))
-                <div class="text-center bg-gray-200 rounded-md p-2">
+                <div class="text-center bg-gray-100 rounded-md p-2" id="flash_message">
                     <span class="text-indigo-600 text-xl font-semibold">{{session('deleted')}}</span>
                 </div>
             @endif
             <div class="overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100s space-x-8">
-                    <a href="{{route('books.create')}}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Añadir nuevo libro') }}</a>
-                    {{--<a href="#" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Las mejores reviews') }}</a>--}}
+                    <a href="{{route('books.create')}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Añadir nuevo libro') }}</a>
+                    {{--<a href="#" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Las mejores reviews') }}</a>--}}
                 </div>
             </div>
-            <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg">
+            <div class="dark:bg-gray-800 shadow-sm sm:rounded-lg">
                 {{--for--}}
                 @forelse($books as $book)
                     <div class="p-6 flex space-x-2">

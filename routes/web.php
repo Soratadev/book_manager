@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CarousellController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'dashboard');
@@ -20,7 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/reviews/{review}', [ReviewController::class, 'liked'])->name('reviews.liked');
 
     Route::resource('books', BookController::class);
+
+    Route::get('/carousel', [CarousellController::class, 'index'])->name('carousel.index');
 });
 
 require __DIR__.'/auth.php';
-
