@@ -28,7 +28,7 @@ class BookController extends Controller
         return view('books.index', ['books' => $books]);
     }
 
-    public function add(): View
+    public function create(): View
     {
         return view('books.add_edit');
     }
@@ -71,7 +71,7 @@ class BookController extends Controller
         return view('books.show')->with('book',$book);
     }
 
-    public function delete(Book $book): RedirectResponse
+    public function destroy(Book $book): RedirectResponse
     {
         $book->delete();
         session()->flash('deleted','Libro eliminado correctamente');

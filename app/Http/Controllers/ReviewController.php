@@ -58,7 +58,7 @@ class ReviewController extends Controller
     {
         return view('reviews.show',['review'=>$review]);
     }
-    public function delete(Review $review): RedirectResponse
+    public function destroy(Review $review): RedirectResponse
     {
         $this->authorize('delete', $review);
         $review->delete();
@@ -73,6 +73,4 @@ class ReviewController extends Controller
 
         return redirect()->route('reviews.show',['review'=>$review]);
     }
-
-
 }

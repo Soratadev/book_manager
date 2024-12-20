@@ -60,7 +60,7 @@
                                             </x-dropdown-link>
                                         @endcan
                                         @can('delete', $review)
-                                            <form method="POST" action="{{route('reviews.delete', $review)}}">
+                                            <form method="POST" action="{{route('reviews.destroy', $review)}}">
                                                 @csrf
                                                 @method('delete')
                                                 <x-dropdown-link href="" onclick="event.preventDefault(); this.closest('form').submit();">
