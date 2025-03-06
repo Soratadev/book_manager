@@ -48,7 +48,7 @@ class BookController extends Controller
             'pages'=> $validated['pages'],
             'finished'=> $validated['finished'],
         ]);
-        session()->flash('success','Libro añadido correctamente');
+        session()->flash('success','Book added successfully');
         return redirect()->route('books.index');
     }
 
@@ -62,7 +62,7 @@ class BookController extends Controller
         $validated = $request->validate($this->validated_data);
 
         $book->update($validated);
-        session()->flash('updated','Libro modificado correctamente');
+        session()->flash('updated','Book updated successfully');
         return redirect()->route('books.index');
     }
 
@@ -74,7 +74,7 @@ class BookController extends Controller
     public function destroy(Book $book): RedirectResponse
     {
         $book->delete();
-        session()->flash('deleted','Libro eliminado correctamente');
+        session()->flash('deleted','Book deleted successfully');
         return redirect()->route('books.index');
     }
 

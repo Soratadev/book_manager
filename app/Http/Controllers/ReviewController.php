@@ -35,7 +35,7 @@ class ReviewController extends Controller
             'body' => $validated['body'],
             'likes' => 0
         ]);
-        session()->flash('success','Review creada correctamente');
+        session()->flash('success','Review added successfully');
         return redirect()->route('reviews.index');
     }
     public function edit(Review $review): View
@@ -51,7 +51,7 @@ class ReviewController extends Controller
             'body' => 'required|string|max:1055',
         ]);
         $review->update($validated);
-        session()->flash('updated','Review modificada correctamente');
+        session()->flash('updated','Review uodated successfully');
         return redirect()->route('reviews.index');
     }
     public function show(Review $review): View
@@ -62,7 +62,7 @@ class ReviewController extends Controller
     {
         $this->authorize('delete', $review);
         $review->delete();
-        session()->flash('deleted','Review eliminada correctamente');
+        session()->flash('deleted','Review deleted successfully');
         return redirect()->route('reviews.index');
     }
     public function liked(Request $request, Review $review): RedirectResponse

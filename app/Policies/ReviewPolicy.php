@@ -42,7 +42,7 @@ class ReviewPolicy
 //        return $user->id === $review->user_id;
         return $review->user_id === $user->id
             ? Response::allow()
-            : Response::deny('Esta review no te pertenece');
+            : Response::deny('You do not own this review.');
     }
     /**
      * Determine whether the user can delete the model.

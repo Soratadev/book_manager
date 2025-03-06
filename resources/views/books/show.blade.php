@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-            Datos del libro: {{$book->title}}
+            Book information: {{$book->title}}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -18,33 +18,33 @@
                     </style>
                     <table class="mx-auto" style="border-collapse: collapse; width: 30%">
                         <tr>
-                            <td><p>Título: {{$book->title}}</p></td>
+                            <td><p>Title: {{$book->title}}</p></td>
                         </tr>
                         <tr>
-                            <td><p>Autor: {{$book->author}}</p></td>
+                            <td><p>Author: {{$book->author}}</p></td>
                         </tr>
                         <tr>
-                            <td><p>Género: {{$book->genre}}</p></td>
+                            <td><p>Genre: {{$book->genre}}</p></td>
                         </tr>
                         <tr>
-                            <td><p>Editorial: {{$book->publisher}}</p></td>
+                            <td><p>Publisher: {{$book->publisher}}</p></td>
                         </tr>
                         <tr>
                             <td><p>ISBN 13: {{$book->isbn}}</p></td>
                         </tr>
                         <tr>
-                            <td><p>Año de publicación: {{$book->publication_year}}</p></td>
+                            <td><p>Publication year: {{$book->publication_year}}</p></td>
                         </tr>
                         <tr>
-                            <td><p>Nº de páginas: {{$book->pages}}</p></td>
+                            <td><p>Pages: {{$book->pages}}</p></td>
                         </tr>
                         <tr>
-                            <td> <p>¿Terminado?: {{$book->finished}}</p></td>
+                            <td> <p>Finished?: {{$book->finished}}</p></td>
                         </tr>
                     </table>
                     <div class="flex mt-4 space-x-8 justify-center">
                         <x-primary-button>
-                            <a href={{route('books.index')}} class="mx-auto">{{ __('Atrás') }}</a>
+                            <a href={{route('books.index')}} class="mx-auto">{{ __('Back') }}</a>
                         </x-primary-button>
                     </div>
                 </div>

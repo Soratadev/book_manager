@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Libros') }}
+            {{ __('Books') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -21,7 +21,7 @@
             @endif
             <div class="overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100s space-x-8">
-                    <a href="{{route('books.create')}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Añadir nuevo libro') }}</a>
+                    <a href="{{route('books.create')}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Add new book') }}</a>
                     {{--<a href="#" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Las mejores reviews') }}</a>--}}
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 {{--for--}}
                 @forelse($books as $book)
                     <div class="p-6 flex space-x-2">
-                        {{--<x-lightbulb-svg></x-lightbulb-svg>--}}
+                        <x-book-svg></x-book-svg>
                         <div class="flex-1 pl-3">
                             <div class="flex justify-between items-center">
                                 <div>
@@ -50,16 +50,16 @@
                                         </x-slot>
                                         <x-slot name="content">
                                             <x-dropdown-link :href="route('books.show', $book)">
-                                                {{ __('Ver') }}
+                                                {{ __('View') }}
                                             </x-dropdown-link>
                                             <x-dropdown-link :href="route('books.edit', $book)">
-                                                {{ __('Editar') }}
+                                                {{ __('Edit') }}
                                             </x-dropdown-link>
                                             <form method="POST" action="{{route('books.destroy', $book)}}">
                                                 @csrf
                                                 @method('delete')
                                                 <x-dropdown-link href="#" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    {{ __('Eliminar') }}
+                                                    {{ __('Delete') }}
                                                 </x-dropdown-link>
                                             </form>
                                         </x-slot>
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 @empty
-                    <h2 class="text-xl text-white p-3">Aún no hay libros, prueba a añadir el primero :)</h2>
+                    <h2 class="text-xl text-white p-3">No books yet, try adding the first one :)</h2>
                 @endforelse
                 {{--endfor--}}
             </div>

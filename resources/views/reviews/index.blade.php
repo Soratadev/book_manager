@@ -19,19 +19,18 @@
                     <span class="text-indigo-600 text-xl font-semibold">{{session('deleted')}}</span>
                 </div>
             @endif
-
             <div class="overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 text-gray-900 dark:text-gray-100s space-x-8">
-                    <a href="{{route('reviews.create')}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Agregar review') }}</a>
-                    <a href="{{route('reviews.index', ['filter'=>'popular'])}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Más populares') }}</a>
-                    <a href="{{route('reviews.index', ['filter'=>'own'])}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Mis reviews') }}</a>
+                    <a href="{{route('reviews.create')}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Add review') }}</a>
+                    <a href="{{route('reviews.index', ['filter'=>'popular'])}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('Most popular') }}</a>
+                    <a href="{{route('reviews.index', ['filter'=>'own'])}}" class="px-4 py-4 dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">{{ __('My reviews') }}</a>
                 </div>
             </div>
             <div class="dark:bg-gray-800 shadow-sm sm:rounded-lg">
                 {{--for--}}
                 @forelse($reviews as $review)
                     <div class="p-6 flex space-x-2">
-                    {{--<x-lightbulb-svg></x-lightbulb-svg>--}}
+                    <x-lightbulb-svg></x-lightbulb-svg>
                     <div class="flex-1 pl-3">
                         <div class="flex justify-between items-center">
                             <div>
@@ -52,11 +51,11 @@
                                     </x-slot>
                                     <x-slot name="content">
                                         <x-dropdown-link :href="route('reviews.show', $review)">
-                                            {{ __('Ver') }}
+                                            {{ __('View') }}
                                         </x-dropdown-link>
                                         @can('update', $review)
                                             <x-dropdown-link :href="route('reviews.edit', $review)">
-                                                {{ __('Editar') }}
+                                                {{ __('Edit') }}
                                             </x-dropdown-link>
                                         @endcan
                                         @can('delete', $review)
@@ -64,7 +63,7 @@
                                                 @csrf
                                                 @method('delete')
                                                 <x-dropdown-link href="" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    {{ __('Eliminar') }}
+                                                    {{ __('Delete') }}
                                                 </x-dropdown-link>
                                             </form>
                                         @endcan
@@ -80,7 +79,7 @@
                     </div>
                 </div>
                 @empty
-                    <h2 class="text-xl text-white p-3">Aún no hay reviews, prueba a escribir la primera :)</h2>
+                    <h2 class="text-xl text-white p-3">No reviews yet, try writing the first one :)</h2>
                 @endforelse
                 {{--endfor--}}
             </div>
